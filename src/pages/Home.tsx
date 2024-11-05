@@ -59,7 +59,7 @@ const Home = () => {
           <th className="p-4 max-w-[30%] w-[30%]">💰 Coin</th>
           <th className="p-4 max-w-[20%] w-[20%]">📄 Code</th>
           <th className="p-4 max-w-[20%] w-[20%]">😛 Price</th>
-          <th className="p-4 max-w-[30%] w-[30%]">📉 Supply</th>
+          <th className="p-4 max-w-[30%] w-[30%]">📉 Total Supply</th>
         </thead>
         <tbody>
           {paginatedCoins.map((coin, index) => (
