@@ -12,12 +12,24 @@ const Home = () => {
   const [coins, setCoins] = useState<Coin[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null); 
+
 
   useEffect(() => {
     const fetchCoins = async () => {
-      const response = await fetch('https://api.coinlore.net/api/tickers/');
-      const data = await response.json();
-      setCoins(data.data);
+      setLoading(true); 
+      try {
+        const response = await fetch('https://api.coinlore.net/api/tickers/');
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        setCoins(data.data);
+        setError(null);
+      } catch (err) {
+        setError((err as Error).message);
+      }finally{
+        setLoading(false);
+      }
     };
     fetchCoins();
   }, []);
@@ -34,6 +46,8 @@ const Home = () => {
 
   return (
     <div className="overflow-auto text-left justify-start">
+      {loading && <div>Loading...</div>}
+      {error && <div className="text-red-500">{error}</div>} 
       {/* Table for Larger Screens */}
       <table className="min-w-full border-collapse border border-gray-200 hidden sm:table">
         <thead>
@@ -92,7 +106,7 @@ const Home = () => {
         {currentPage > 1 ? (
           <button
             onClick={handlePrevPage}
-            className="p-2  rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="p-2 rounded-md hover:ring-2 hover:ring-gray-500"
           >
             &larr; Previous
           </button>
@@ -103,7 +117,7 @@ const Home = () => {
         {currentPage * itemsPerPage < coins.length && (
           <button
             onClick={handleNextPage}
-            className="p-2  rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="p-2 rounded-md hover:ring-2 hover:ring-gray-500"
           >
             Next &rarr;
           </button>
