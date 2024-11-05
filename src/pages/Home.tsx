@@ -51,10 +51,10 @@ const Home = () => {
   return loading ? (
     <Loader />
   ) : (
-    <div className="overflow-auto text-left justify-start">
+    <div className="overflow-auto text-left justify-start sm:pt-10">
       {error && <div className="text-red-500">{error}</div>}
       {/* Table for Larger Screens */}
-      <table className="min-w-full border-collapse border border-gray-200 hidden sm:table">
+      <table className="w-[95%] mx-auto border-collapse border border-gray-200 hidden sm:table">
         <thead>
           <th className="p-4 max-w-[30%] w-[30%]">💰 Coin</th>
           <th className="p-4 max-w-[20%] w-[20%]">📄 Code</th>
@@ -81,7 +81,7 @@ const Home = () => {
       </table>
 
       {/* Table for Smaller Devices */}
-      <div className="sm:hidden">
+      <div className="sm:hidden w-[95%] mx-auto">
         {paginatedCoins.map((coin, index) => (
           <div
             key={coin.id}
@@ -115,7 +115,7 @@ const Home = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-between mx-5 items-center my-4">
+      <div className="flex justify-between w-[95%] mx-auto items-center my-4">
         {currentPage > 1 ? (
           <button
             onClick={handlePrevPage}
